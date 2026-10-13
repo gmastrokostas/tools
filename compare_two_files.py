@@ -1,20 +1,28 @@
-import argparse
+#Compare two files instead of using excel spreadsheet
+file1 = input("Enter name of first file:  ")
+file2 = input("Enter name of second file: ")
 
-parser=argparse.ArgumentParser(
-    description="Enter two file names"
-)
-parser.add_argument("file1", help="First input file")
-parser.add_argument("file2", help="Seond input file")
+try:
+    with open(file1) as f1, open(file2) as f2:
+        for f in (f1,f2):
+            for line in f:
+                line=line.rstrip("\n")  
+                if len(line.split()) > 1:
+                    print("Exiting. Script is designed for one column comparison. Format cannot be processed")
+                    raise SystemExit
+                else:
+                    set_f1=(set(f1))
+                    set_f2=(set(f2))
+                    result_common=set_f1.intersection(set_f2)
+                    result_different=set_f1.difference(set_f2)
+                    print("Common Elements between the two files")
+                    print(result_common)
+                    print("--------------------------")
+                    print("Difference between the two files")
+                    print(result_different)
 
-args = parser.parse_args()
+            
 
-with open(args.file1) as f1, open(args.file2) as f2:
-    list_1=[line.rstrip("\n") for line in f1 ]
-    list_2=[line.rstrip("\n") for line in f2 ]
 
-set_1=(set(list_1))
-set_2=(set(list_2))
-
-common_data=set_1.intersection(set_2)
-
-print(common_data)
+except Exception as e:
+    print(f"Error: {e}")
