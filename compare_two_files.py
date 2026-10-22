@@ -1,6 +1,12 @@
+import sys
 #Compare two files instead of using excel spreadsheet
 file1 = input("Enter name of first file:  ")
 file2 = input("Enter name of second file: ")
+
+print(file1, file2)
+
+if not file1.endswith('.csv') or not file2.endswith('.csv'):
+    sys.exit("Exiting")
 
 try:
     with open(file1) as f1, open(file2) as f2:
@@ -22,7 +28,6 @@ try:
                     print(result_different)
 
             
-
 
 except Exception as e:
     print(f"Error: {e}")
